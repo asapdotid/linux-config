@@ -64,6 +64,14 @@ if [[ $OSTYPE == linux* ]]; then
     alias g:doc='gdoc'
     alias g:tst='gtst'
     alias g:brk='gbrk'
+    # Git with Emoji with Push
+    alias g:new:p='gnew push'
+    alias g:imp:p='gimp push'
+    alias g:fix:p='gfix push'
+    alias g:rlz:p='grlz push'
+    alias g:doc:p='gdoc push'
+    alias g:tst:p='gtst push'
+    alias g:brk:p='gbrk push'
 
     # Git Flow
     alias gf='git flow'
@@ -86,7 +94,12 @@ if [[ $OSTYPE == linux* ]]; then
     alias gf:rp='git flow release publish'
     alias gf:fp='git flow feature pull'
 
-    # Homebrew Services
+    # Handling Service (start, stop, restart)
+    alias s:l='sudo systemctl list-units --type=service'
+    alias s:l:a='sudo systemctl list-units --type=service --state=active'
+    alias s:l:r='sudo systemctl list-units --type=service --state=running'
+    alias s:l:r='sudo systemctl list-units --type=service --state=enabled'
+    alias s:set='function _service(){ sudo systemctl $1 $2.service};_service'
 
     # NVM
     alias nvm:l='nvm ls'
@@ -132,6 +145,18 @@ if [[ $OSTYPE == linux* ]]; then
     alias pa:v='pa --version'
 
     alias web:new='new_website_project'
+
+    # Docker
+    alias dcc='docker-compose'
+    alias dcc:v='docker-compose --version'
+    alias dcc:set='function _doccomp(){docker-compose $1};_doccomp'
+    alias dcc:b='docker-compose up -d --build -f'
+    # Must be run first because images are attached to containers
+    alias dc='docker'
+    alias dc:i='docker info'
+    alias dc:rc:a='docker rm -f $(docker ps -a -q)'
+    # Delete every Docker image
+    alias dc:ri:a='docker rmi -f $(docker images -q)'
 
     # Tmuxinator
     alias mux='tmuxinator'

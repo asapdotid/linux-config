@@ -204,40 +204,80 @@ ansible_project_init () {
 
 # Git Commit, Add all and Push — in one step.
 function gcap() {
-    git add . && git commit -m "$*" && git push
+    git add . && git commit -m "$*" && git push ${1:-origin} "$(git symbolic-ref --short HEAD)"
+}
+
+# Git Commit, Add all — in one step.
+function gca() {
+    git add . && git commit -m "$*"
 }
 
 # NEW.
 function gnew() {
-    gcap "📦 NEW: $@"
+  if [[ (-z "$1") && ($1 == "push") ]]
+  then
+    gcap "📦 NEW: $2"
+  else
+    gca "📦 NEW: $1"
+  fi
 }
 
 # IMPROVE.
 function gimp() {
-    gcap "👌 IMPROVE: $@"
+  if [[ (-z "$1") && ($1 == "push") ]]
+  then
+    gcap "👌 IMPROVE: $2"
+  else
+    gca "👌 IMPROVE: $1"
+  fi
 }
 
 # FIX.
 function gfix() {
-    gcap "🐛 FIX: $@"
+  if [[ (-z "$1") && ($1 == "push") ]]
+  then
+    gcap "🐛 FIX: $2"
+  else
+    gca "🐛 FIX: $1"
+  fi
 }
 
 # RELEASE.
 function grlz() {
-    gcap "🚀 RELEASE: $@"
+  if [[ (-z "$1") && ($1 == "push") ]]
+  then
+    gcap "🚀 RELEASE: $2"
+  else
+    gca "🚀 RELEASE: $1"
+  fi
 }
 
 # DOC.
 function gdoc() {
-    gcap "📖 DOC: $@"
+  if [[ (-z "$1") && ($1 == "push") ]]
+  then
+    gcap "📖 DOC: $2"
+  else
+    gca "📖 DOC: $1"
+  fi
 }
 
 # TEST.
 function gtst() {
-    gcap "🤖 TEST: $@"
+  if [[ (-z "$1") && ($1 == "push") ]]
+  then
+    gcap "🤖 TEST: $2"
+  else
+    gca "🤖 TEST: $1"
+  fi
 }
 
 # BREAKING CHANGE.
 function gbrk() {
-    gcap "‼️ BREAKING: $@"
+    if [[ (-z "$1") && ($1 == "push") ]]
+  then
+     gcap "‼️ BREAKING: $2"
+  else
+     gca "‼️ BREAKING: $1"
+  fi
 }
