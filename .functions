@@ -237,21 +237,22 @@ function gca() {
 # NEW.
 function gnew() {
     ARGS=`getArgs "$@"`
-    local push=`echo "$ARGS" | getNamedArg push`
-    local message=`echo "$ARGS" | getNamedArg message`
+    push=`echo "$ARGS" | getNamedArg push`
+    message=`echo "$ARGS" | getNamedArg message`
     if [ $push == "" ]
     then
         gca "📦 NEW: $message"
     else
         gcap "📦 NEW: $message"
     fi
+    echo "$i"
 }
 
 # IMPROVE.
 function gimp() {
     ARGS=`getArgs "$@"`
-    local push=`echo "$ARGS" | getNamedArg push`
-    local message=`echo "$ARGS" | getNamedArg message`
+    push=`echo "$ARGS" | getNamedArg push`
+    message=`echo "$ARGS" | getNamedArg message`
     if [ $push == "" ]
     then
         gca "👌 IMPROVE: $message"
@@ -263,8 +264,8 @@ function gimp() {
 # FIX.
 function gfix() {
     ARGS=`getArgs "$@"`
-    local push=`echo "$ARGS" | getNamedArg push`
-    local message=`echo "$ARGS" | getNamedArg message`
+    push=`echo "$ARGS" | getNamedArg push`
+    message=`echo "$ARGS" | getNamedArg message`
     if [ $push == "" ]
     then
         gca "🐛 FIX: $message"
@@ -276,8 +277,8 @@ function gfix() {
 # RELEASE.
 function grlz() {
     ARGS=`getArgs "$@"`
-    local push=`echo "$ARGS" | getNamedArg push`
-    local message=`echo "$ARGS" | getNamedArg message`
+    push=`echo "$ARGS" | getNamedArg push`
+    message=`echo "$ARGS" | getNamedArg message`
     if [ $push == "" ]
     then
         gca "🚀 RELEASE: $message"
@@ -289,8 +290,8 @@ function grlz() {
 # DOC.
 function gdoc() {
     ARGS=`getArgs "$@"`
-    local push=`echo "$ARGS" | getNamedArg push`
-    local message=`echo "$ARGS" | getNamedArg message`
+    push=`echo "$ARGS" | getNamedArg push`
+    message=`echo "$ARGS" | getNamedArg message`
     if [ $push == "" ]
     then
         gca "📖 DOC: $message"
@@ -302,8 +303,8 @@ function gdoc() {
 # TEST.
 function gtst() {
     ARGS=`getArgs "$@"`
-    local push=`echo "$ARGS" | getNamedArg push`
-    local message=`echo "$ARGS" | getNamedArg message`
+    push=`echo "$ARGS" | getNamedArg push`
+    message=`echo "$ARGS" | getNamedArg message`
     if [ $push == "" ]
     then
         gca "🤖 TEST: $message"
@@ -315,8 +316,8 @@ function gtst() {
 # BREAKING CHANGE.
 function gbrk() {
     ARGS=`getArgs "$@"`
-    local push=`echo "$ARGS" | getNamedArg push`
-    local message=`echo "$ARGS" | getNamedArg message`
+    push=`echo "$ARGS" | getNamedArg push`
+    message=`echo "$ARGS" | getNamedArg message`
     if [ $push == "" ]
     then
         gca "‼️ BREAKING: $message"
