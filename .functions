@@ -239,13 +239,12 @@ function gnew() {
     ARGS=`getArgs "$@"`
     push=`echo "$ARGS" | getNamedArg push`
     message=`echo "$ARGS" | getNamedArg message`
-    if [ $push == "" ]
+    if [ -n "$push" ]
     then
-        gca "📦 NEW: $message"
-    else
         gcap "📦 NEW: $message"
+    else
+        gca "📦 NEW: $message"
     fi
-    echo "$i"
 }
 
 # IMPROVE.
@@ -253,11 +252,11 @@ function gimp() {
     ARGS=`getArgs "$@"`
     push=`echo "$ARGS" | getNamedArg push`
     message=`echo "$ARGS" | getNamedArg message`
-    if [ $push == "" ]
+    if [ -n "$push" ]
     then
-        gca "👌 IMPROVE: $message"
-    else
         gcap "👌 IMPROVE: $message"
+    else
+        gca "👌 IMPROVE: $message"
     fi
 }
 
@@ -266,11 +265,11 @@ function gfix() {
     ARGS=`getArgs "$@"`
     push=`echo "$ARGS" | getNamedArg push`
     message=`echo "$ARGS" | getNamedArg message`
-    if [ $push == "" ]
+    if [ -n "$push" ]
     then
-        gca "🐛 FIX: $message"
-    else
         gcap "🐛 FIX: $message"
+    else
+        gca "🐛 FIX: $message"
     fi
 }
 
@@ -279,11 +278,11 @@ function grlz() {
     ARGS=`getArgs "$@"`
     push=`echo "$ARGS" | getNamedArg push`
     message=`echo "$ARGS" | getNamedArg message`
-    if [ $push == "" ]
+    if [ -n "$push" ]
     then
-        gca "🚀 RELEASE: $message"
-    else
         gcap "🚀 RELEASE: $message"
+    else
+        gca "🚀 RELEASE: $message"
     fi
 }
 
@@ -292,7 +291,7 @@ function gdoc() {
     ARGS=`getArgs "$@"`
     push=`echo "$ARGS" | getNamedArg push`
     message=`echo "$ARGS" | getNamedArg message`
-    if [ $push == "" ]
+   if [ -n "$push" ]
     then
         gca "📖 DOC: $message"
     else
@@ -305,7 +304,7 @@ function gtst() {
     ARGS=`getArgs "$@"`
     push=`echo "$ARGS" | getNamedArg push`
     message=`echo "$ARGS" | getNamedArg message`
-    if [ $push == "" ]
+    if [ -n "$push" ]
     then
         gca "🤖 TEST: $message"
     else
@@ -318,7 +317,7 @@ function gbrk() {
     ARGS=`getArgs "$@"`
     push=`echo "$ARGS" | getNamedArg push`
     message=`echo "$ARGS" | getNamedArg message`
-    if [ $push == "" ]
+    if [ -n "$push" ]
     then
         gca "‼️ BREAKING: $message"
     else
