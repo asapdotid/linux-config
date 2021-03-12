@@ -15,6 +15,28 @@ else
   echo "No $envFile file found" 1>&2
 fi
 
+function getArgs() {
+    for arg in "$@"; do
+        echo "$arg"
+    done
+}
+
+function getNamedArg() {
+  ARG_NAME=$1
+
+  sed --regexp-extended --quiet --expression="
+      s/^--$ARG_NAME=(.*)\$/\1/p  # Get arguments in format '--arg=value': [s]ubstitute '--arg=value' by 'value', and [p]rint
+      /^--$ARG_NAME\$/ {          # Get arguments in format '--arg value' ou '--arg'
+          n                       # - [n]ext, because in this format, if value exists, it will be the next argument
+          /^--/! p                # - If next doesn't starts with '--', it is the value of the actual argument
+          /^--/ {                 # - If next do starts with '--', it is the next argument and the actual argument is a boolean one
+              # Then just repla[c]ed by TRUE
+              c TRUE
+          }
+      }
+    "
+}
+
 log() {
   echo -e "${NAMI_DEBUG:+${CYAN}${MODULE} ${MAGENTA}$(date "+%T.%2N ")}${RESET}${@}" >&2
 }
@@ -214,70 +236,91 @@ function gca() {
 
 # NEW.
 function gnew() {
-  if [[ (-z "$1") && ($1 == "push") ]]
-  then
-    gcap "📦 NEW: $2"
-  else
-    gca "📦 NEW: $1"
-  fi
+    ARGS=`getArgs "$@"`
+    local push=`echo "$ARGS" | getNamedArg push`
+    local message=`echo "$ARGS" | getNamedArg message`
+    if [ $push == "" ]
+    then
+        gca "📦 NEW: $message"
+    else
+        gcap "📦 NEW: $message"
+    fi
 }
 
 # IMPROVE.
 function gimp() {
-  if [[ (-z "$1") && ($1 == "push") ]]
-  then
-    gcap "👌 IMPROVE: $2"
-  else
-    gca "👌 IMPROVE: $1"
-  fi
+    ARGS=`getArgs "$@"`
+    local push=`echo "$ARGS" | getNamedArg push`
+    local message=`echo "$ARGS" | getNamedArg message`
+    if [ $push == "" ]
+    then
+        gca "👌 IMPROVE: $message"
+    else
+        gcap "👌 IMPROVE: $message"
+    fi
 }
 
 # FIX.
 function gfix() {
-  if [[ (-z "$1") && ($1 == "push") ]]
-  then
-    gcap "🐛 FIX: $2"
-  else
-    gca "🐛 FIX: $1"
-  fi
+    ARGS=`getArgs "$@"`
+    local push=`echo "$ARGS" | getNamedArg push`
+    local message=`echo "$ARGS" | getNamedArg message`
+    if [ $push == "" ]
+    then
+        gca "🐛 FIX: $message"
+    else
+        gcap "🐛 FIX: $message"
+    fi
 }
 
 # RELEASE.
 function grlz() {
-  if [[ (-z "$1") && ($1 == "push") ]]
-  then
-    gcap "🚀 RELEASE: $2"
-  else
-    gca "🚀 RELEASE: $1"
-  fi
+    ARGS=`getArgs "$@"`
+    local push=`echo "$ARGS" | getNamedArg push`
+    local message=`echo "$ARGS" | getNamedArg message`
+    if [ $push == "" ]
+    then
+        gca "🚀 RELEASE: $message"
+    else
+        gcap "🚀 RELEASE: $message"
+    fi
 }
 
 # DOC.
 function gdoc() {
-  if [[ (-z "$1") && ($1 == "push") ]]
-  then
-    gcap "📖 DOC: $2"
-  else
-    gca "📖 DOC: $1"
-  fi
+    ARGS=`getArgs "$@"`
+    local push=`echo "$ARGS" | getNamedArg push`
+    local message=`echo "$ARGS" | getNamedArg message`
+    if [ $push == "" ]
+    then
+        gca "📖 DOC: $message"
+    else
+        gcap "📖 DOC: $message"
+    fi
 }
 
 # TEST.
 function gtst() {
-  if [[ (-z "$1") && ($1 == "push") ]]
-  then
-    gcap "🤖 TEST: $2"
-  else
-    gca "🤖 TEST: $1"
-  fi
+    ARGS=`getArgs "$@"`
+    local push=`echo "$ARGS" | getNamedArg push`
+    local message=`echo "$ARGS" | getNamedArg message`
+    if [ $push == "" ]
+    then
+        gca "🤖 TEST: $message"
+    else
+        gcap "🤖 TEST: $message"
+    fi
 }
 
 # BREAKING CHANGE.
 function gbrk() {
-    if [[ (-z "$1") && ($1 == "push") ]]
-  then
-     gcap "‼️ BREAKING: $2"
-  else
-     gca "‼️ BREAKING: $1"
-  fi
+    ARGS=`getArgs "$@"`
+    local push=`echo "$ARGS" | getNamedArg push`
+    local message=`echo "$ARGS" | getNamedArg message`
+    if [ $push == "" ]
+    then
+        gca "‼️ BREAKING: $message"
+    else
+        gcap "‼️ BREAKING: $message"
+    fi
 }

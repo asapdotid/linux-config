@@ -1,5 +1,7 @@
 # Custom config for support bash or zsh :computer:
 
+> I'm use Manjaro
+
 1. Aliasas
 1. Function
 
