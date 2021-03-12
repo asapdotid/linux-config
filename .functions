@@ -204,12 +204,12 @@ ansible_project_init () {
 
 # Git Commit, Add all and Push — in one step.
 function gcap() {
-    git add . && git commit -m "$*" && git push ${1:-origin} "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "$1" && git push ${1:-origin} "$(git symbolic-ref --short HEAD)"
 }
 
 # Git Commit, Add all — in one step.
 function gca() {
-    git add . && git commit -m "$*"
+    git add . && git commit -m "$1"
 }
 
 # NEW.
