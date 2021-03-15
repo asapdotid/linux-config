@@ -29,8 +29,10 @@ example:
 EDITOR='vim'
 ```
 
+Now youcan use aliases for your command don't forget before use it, please to reload config `source ~/.zshrc`
+
 Refrence :
 
-- [Emoji Log](https://github.com/ahmadawais/Emoji-Log)
+-   [Emoji Log](https://github.com/ahmadawais/Emoji-Log)
 
 If any issue please contact me [@asapdotid](mailto:asapdotid@gmail.com) :point_left:
