@@ -15,28 +15,6 @@ else
   echo "No $envFile file found" 1>&2
 fi
 
-function getArgs() {
-    for arg in "$@"; do
-        echo "$arg"
-    done
-}
-
-function getNamedArg() {
-  ARG_NAME=$1
-
-  sed --regexp-extended --quiet --expression="
-      s/^--$ARG_NAME=(.*)\$/\1/p  # Get arguments in format '--arg=value': [s]ubstitute '--arg=value' by 'value', and [p]rint
-      /^--$ARG_NAME\$/ {          # Get arguments in format '--arg value' ou '--arg'
-          n                       # - [n]ext, because in this format, if value exists, it will be the next argument
-          /^--/! p                # - If next doesn't starts with '--', it is the value of the actual argument
-          /^--/ {                 # - If next do starts with '--', it is the next argument and the actual argument is a boolean one
-              # Then just repla[c]ed by TRUE
-              c TRUE
-          }
-      }
-    "
-}
-
 log() {
   echo -e "${NAMI_DEBUG:+${CYAN}${MODULE} ${MAGENTA}$(date "+%T.%2N ")}${RESET}${@}" >&2
 }
@@ -230,7 +208,7 @@ ansible_project_init () {
 
 # Git Commit, Add all and Push — in one step.
 function gcap() {
-    git add . && git commit -m "$1" && git push ${2:-origin} "$(git symbolic-ref --short HEAD)"
+    git add . && git commit -m "$2" && git push ${1:-origin} "$(git symbolic-ref --short HEAD)"
 }
 
 # Git Commit, Add all — in one step.
@@ -240,9 +218,7 @@ function gca() {
 
 # NEW.
 function gnew() {
-    ARGS=`getArgs "$@"`
-    push=`echo "$ARGS" | getNamedArg push`
-    if [ -n "$push" ]
+    if [[ -n "$1" && $1 == "--push" ]]
     then
         input "Remote name"; read r_name
         if [ -z "$r_name" ];
@@ -267,9 +243,7 @@ function gnew() {
 
 # IMPROVE.
 function gimp() {
-    ARGS=`getArgs "$@"`
-    push=`echo "$ARGS" | getNamedArg push`
-    if [ -n "$push" ]
+    if [[ -n "$1" && $1 == "--push" ]]
     then
         input "Remote name"; read r_name
         if [ -z "$r_name" ];
@@ -294,9 +268,7 @@ function gimp() {
 
 # FIX.
 function gfix() {
-    ARGS=`getArgs "$@"`
-    push=`echo "$ARGS" | getNamedArg push`
-    if [ -n "$push" ]
+    if [[ -n "$1" && $1 == "--push" ]]
     then
         input "Remote name"; read r_name
         if [ -z "$r_name" ];
@@ -321,9 +293,7 @@ function gfix() {
 
 # RELEASE.
 function grls() {
-    ARGS=`getArgs "$@"`
-    push=`echo "$ARGS" | getNamedArg push`
-    if [ -n "$push" ]
+    if [[ -n "$1" && $1 == "--push" ]]
     then
         input "Remote name"; read r_name
         if [ -z "$r_name" ];
@@ -348,9 +318,7 @@ function grls() {
 
 # DOC.
 function gdoc() {
-    ARGS=`getArgs "$@"`
-    push=`echo "$ARGS" | getNamedArg push`
-    if [ -n "$push" ]
+    if [[ -n "$1" && $1 == "--push" ]]
     then
         input "Remote name"; read r_name
         if [ -z "$r_name" ];
@@ -375,9 +343,7 @@ function gdoc() {
 
 # TEST.
 function gtst() {
-    ARGS=`getArgs "$@"`
-    push=`echo "$ARGS" | getNamedArg push`
-    if [ -n "$push" ]
+    if [[ -n "$1" && $1 == "--push" ]]
     then
         input "Remote name"; read r_name
         if [ -z "$r_name" ];
@@ -402,9 +368,7 @@ function gtst() {
 
 # BREAKING CHANGE.
 function gbrk() {
-   ARGS=`getArgs "$@"`
-    push=`echo "$ARGS" | getNamedArg push`
-    if [ -n "$push" ]
+    if [[ -n "$1" && $1 == "--push" ]]
     then
         input "Remote name"; read r_name
         if [ -z "$r_name" ];

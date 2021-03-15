@@ -29,7 +29,7 @@ example:
 EDITOR='vim'
 ```
 
-Now youcan use aliases for your command don't forget before use it, please to reload config `source ~/.zshrc`
+Now you can use aliases for your command don't forget before use it, please to reload config `source ~/.zshrc`
 
 Refrence :
 
