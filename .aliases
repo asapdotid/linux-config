@@ -57,6 +57,7 @@ if [[ $OSTYPE == linux* ]]; then
     alias g:push='function _gpush(){ git push ${1:-origin} "$(git symbolic-ref --short HEAD)" };_gpush'
     alias g:t='git tag'
     alias g:tag='git_tagging'
+    alias g:st='git stash'
     # Git with Emoji
     alias g:new='gnew'
     alias g:imp='gimp'
@@ -239,4 +240,10 @@ if [[ $OSTYPE == linux* ]]; then
 
     # Transmission cli
     alias tsm="transmission-remote"
+
+    # VS Codium
+    alias code="codium"
+
+    # Noevim
+    alias nv="nvim"
 fi
