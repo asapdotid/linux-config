@@ -252,7 +252,7 @@ if [[ $OSTYPE == linux* ]]; then
     # alias tsm="transmission-remote"
 
     # VS Codium
-    # alias code="codium"
+    alias code="codium"
 
     # Noevim
     alias nv="nvim"
