@@ -149,8 +149,10 @@ if [[ $OSTYPE == linux* ]]; then
     # Must be run first because images are attached to containers
     alias dc='docker'
     alias dc:i='docker info'
+    alias dc:rc='docker rm -f'
     alias dc:rc:a='docker rm -f $(docker ps -a -q)'
     # Delete every Docker image
+    alias dc:ri='docker rmi -f'
     alias dc:ri:a='docker rmi -f $(docker images -q)'
     alias dc:v='docker volume'
     alias dc:s='docker system'
@@ -158,6 +160,7 @@ if [[ $OSTYPE == linux* ]]; then
     alias dc:c='docker container'
     alias dc:l='docker ps'
     alias dc:la='docker ps -a'
+    alias dc:prune='docker system prune'
     # Docker Compose
     alias dcc='docker-compose'
     alias dcc:v='docker-compose --version'
