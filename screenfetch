@@ -330,7 +330,16 @@ detectcpu () {
 
 # GPU Detection - Begin (EXPERIMENTAL!)
 detectgpu () {
-
+	nvisettexist=$(which nvidia-settings)
+	if [ -x "$nvisettexist" ]; then
+		gpu="$(nvidia-settings -t -q gpus | grep \( | sed 's/.*(\(.*\))/\1/')"
+	else
+		gpu_info=$(pciconf -lv 2> /dev/null | grep -B 4 VGA)
+		gpu_info=$(grep -E 'device.*=.*' <<< "${gpu_info}")
+		gpu="${gpu_info##*device*= }"
+		gpu="${gpu//\'}"
+		# gpu=$(sed 's/.*device.*= //' <<< "${gpu_info}" | sed "s/'//g")
+	fi
 	if [[ -n "$(PATH="/usr/sbin:$PATH" type -p glxinfo)" && -z "${gpu}" ]]; then
 		gpu_info=$($(PATH="/usr/sbin:$PATH" type -p glxinfo | cut -f1) 2>/dev/null)
 		gpu=$(grep "OpenGL renderer string" <<< "${gpu_info}" | cut -d ':' -f2 | sed -n -e '1h;2,$H;${g;s/\n/, /g' -e 'p' -e '}')
@@ -340,7 +349,6 @@ detectgpu () {
 		gpu_info=$($(PATH="/usr/bin:$PATH" type -p lspci | cut -f1) 2> /dev/null | grep VGA)
 		gpu=$(grep -oE '\[.*\]' <<< "${gpu_info}" | sed 's/\[//;s/\]//' | sed -n -e '1h;2,$H;${g;s/\n/, /g' -e 'p' -e '}')
 	fi
-
 
 	if [ -n "$gpu" ];then
 		if grep -q -i 'nvidia' <<< "${gpu_info}"; then
@@ -455,6 +463,7 @@ infoDisplay () {
 	#########################
 	# Info Variable Setting #
 	#########################
+	detectgpu
     if [ "$gpu" = 'Not Found' ] ; then
         DetectIntelGPU
     fi
