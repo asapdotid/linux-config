@@ -15,6 +15,7 @@ $ git clone https://github.com/asapdotid/linux-config.git "${HOME}"/.config/asap
 Add script to load `functions` and `aliases` to ZSH or BASH config `(.zshrc or bashrc)` on the bottom.
 
 ```bash
+source $HOME/.config/asaplinux/screenfetch
 source $HOME/.config/asaplinux/.aliases
 source $HOME/.config/asaplinux/.functions
 ```
