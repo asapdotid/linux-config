@@ -446,10 +446,6 @@ detectmem () {
 }
 # Memory Detection - End
 
-if [ "$gpu" = 'Not Found' ] ; then
-	DetectIntelGPU
-fi
-
 infoDisplay () {
 	c1=$(getColor 'light green')
 	labelcolor=$(getColor 'light green')
@@ -459,6 +455,9 @@ infoDisplay () {
 	#########################
 	# Info Variable Setting #
 	#########################
+    if [ "$gpu" = 'Not Found' ] ; then
+        DetectIntelGPU
+    fi
     if [[ "${display[@]}" =~ "distro" ]]; then
         if [ -n "$distro_more" ]; then
             mydistro=$(echo -e "$labelcolor OS:$textcolor $distro_more")
