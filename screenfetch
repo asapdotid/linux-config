@@ -446,16 +446,15 @@ detectmem () {
 }
 # Memory Detection - End
 
-
 if [ "$gpu" = 'Not Found' ] ; then
 	DetectIntelGPU
 fi
 
 infoDisplay () {
-
 	c1=$(getColor 'light green')
 	labelcolor=$(getColor 'light green')
-
+	textcolor="\033[0m"
+	[[ "$my_hcolor" ]] && textcolor="${my_hcolor}"
 
 	#########################
 	# Info Variable Setting #
@@ -489,7 +488,6 @@ infoDisplay () {
         mymem=$(echo -e "$labelcolor RAM:$textcolor $mem")
     fi
 
-
 	fulloutput=("\n"
 "${c1} ████████████  █████    $mydistro\n"
 "${c1} ████████████  █████    $mykernel\n"
@@ -505,11 +503,20 @@ infoDisplay () {
 
 }
 
-
 ##################
 # Let's Do This!
 ##################
 
-infoDisplay
+for i in "${display[@]}"; do
+	if [[ -n "$i" ]]; then
+		if [[ "${display[*]}" =~ "$i" ]]; then
+			if [[ "$errorSuppress" == "1" ]]; then
+				detect"${i}" 2>/dev/null
+			else
+				detect"${i}"
+			fi
+		fi
+	fi
+done
 
-# exit 0
+infoDisplay
